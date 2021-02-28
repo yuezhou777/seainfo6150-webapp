@@ -8,7 +8,7 @@ const DynamicArticle = (props) => {
       /* add extra html with javascript attributes here */
       <header>
         <h1>{props.article.title}</h1>
-        <address>
+        <address> by 
           {props.article.author} (<a href="mailto:kate.farley@nytimes.com">{props.article.authorEmail}</a>)
           <br />
         </address>
