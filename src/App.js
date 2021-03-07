@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import DynamicArticle from "./DynamicArticle/DynamicArticle.jsx";
+import ArticleList from "./ArticleList/ArticleList";
 import { isEmpty } from "lodash";
 
 function App() {
-  const [fetchedData, setFetchedData] = useState();
+  const [fetchedData, setFetchedData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      // put data fetching code here!
-      const response = await fetch(
-        "http://demo1390455.mockable.io/articles"
-      );
+      // performs a GET request
+      const response = await fetch("http://demo1390455.mockable.io/articles");
       const responseJson = await response.json();
+      console.log("Response Json: ", responseJson);
       setFetchedData(responseJson);
     };
 
@@ -21,22 +21,34 @@ function App() {
     }
   }, [fetchedData]);
 
-  return isEmpty(fetchedData) ? null : (
+  return isEmpty(fetchedData) ? <div>You have no data!</div> : (
     <div className="App">
       <Switch>
+        <Route exact path={`/articlelist`}>
+          <ArticleList articles={Object.values(fetchedData)} />
+        </Route>
+
         <Route
-          exact
           path={`/articlelist/:slug`}
           render={({ match }) => {
             // getting the parameters from the url and passing
             // down to the component as props
-            console.log("this slug", match.params.slug);
-            return <div>Component</div>;
+            const thisSlug = match.params.slug;
+            console.log("this slug", thisSlug);
+            let index = 0;
+            Object.values(fetchedData).map((cont, idx) => {
+              if(cont.slug === thisSlug) {
+                index = idx;
+              }
+            })
+            return <DynamicArticle article={Object.values(fetchedData)[index]} />;
           }}
         />
+
         <Route>
           <DynamicArticle article={Object.values(fetchedData)[1]} />
         </Route>
+
       </Switch>
     </div>
   );
