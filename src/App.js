@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path={`/articlelist`}>
-          <ArticleList articles={Object.values(fetchedData)}></ArticleList>
+          <ArticleList articles={Object.values(fetchedData)} />
         </Route>
 
         <Route
@@ -49,9 +49,6 @@ function App() {
           <DynamicArticle article={Object.values(fetchedData)[1]} />
         </Route>
 
-        <Route>
-          <Link to="/articlelist">Go to article list</Link>
-        </Route>
       </Switch>
     </div>
   );

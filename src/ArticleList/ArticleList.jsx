@@ -5,14 +5,14 @@ const ArticleList = (props) => {
 
     const articleList = props.articles.map((article) => (
         <ArticleListItem key={article.slug} article={article} />
-    ))
+    ));
 
     return (
         <div>
             {articleList}
         </div>
-    )
+    );
 
-}
+};
 
 export default ArticleList;

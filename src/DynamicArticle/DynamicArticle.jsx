@@ -1,9 +1,14 @@
 import React from "react";
 import HTMLText from "../HTMLText/HTMLText";
+import { Route, Switch, Link, useRouteMatch } from "react-router-dom";
 
 const DynamicArticle = (props) => {
   return (
     <article>
+      <div className="articleList">
+        <Link to={`/articlelist`}>Main Articles</Link>
+      </div>
+
       <header>
         <h1>{props.article.title}</h1>
         <address>
